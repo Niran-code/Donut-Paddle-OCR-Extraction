@@ -49,18 +49,18 @@ paddleocr_cache/
 ppocr_keys_v1.txt
 ppocr_keys_v2.txt
 
-# ===== Data =====
-data/raw/
-data/processed/
-data/ocr_cache/
-data/tmp/
-dataset/
-datasets/
-*.pdf
-*.png
-*.jpg
-*.jpeg
-*.webp
+# # ===== Data =====
+# data/raw/
+# data/processed/
+# data/ocr_cache/
+# data/tmp/
+# dataset/
+# datasets/
+# *.pdf
+# *.png
+# *.jpg
+# *.jpeg
+# *.webp
 
 # DO NOT IGNORE GROUND TRUTH JSONs
 # (uncomment if needed)
