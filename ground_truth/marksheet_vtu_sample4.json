@@ -1,0 +1,50 @@
+{
+  "document_type": "Marksheet",
+  "university_name": "Visvesvaraya Technological University",
+  "college_name": "VTU",
+  "university_seat_number": "1CR21CS037",
+  "student_name": "Rakesh Shetty",
+  "semester": "5",
+  "subjects": [
+    {
+      "subject_code": "BCS501",
+      "subject_name": "Computer Networks",
+      "internal_marks": "45",
+      "external_marks": "35",
+      "total": "80",
+      "result": "P"
+    },
+    {
+      "subject_code": "BCS502",
+      "subject_name": "Operating Systems",
+      "internal_marks": "48",
+      "external_marks": "32",
+      "total": "80",
+      "result": "P"
+    },
+    {
+      "subject_code": "BCS503",
+      "subject_name": "Software Engineering",
+      "internal_marks": "47",
+      "external_marks": "31",
+      "total": "78",
+      "result": "P"
+    },
+    {
+      "subject_code": "BCSL504",
+      "subject_name": "Database Lab",
+      "internal_marks": "50",
+      "external_marks": "50",
+      "total": "100",
+      "result": "P"
+    }
+  ],
+  "remarks": {
+    "P": "Pass",
+    "F": "Fail",
+    "A": "Absent",
+    "W": "Withheld",
+    "X": "Not Eligible"
+  },
+  "overall_result": "Pass"
+}

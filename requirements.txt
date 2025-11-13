@@ -1,0 +1,28 @@
+# --- Core Deep Learning Stack ---
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# --- HuggingFace Donut / Transformers ---
+transformers==4.40.0
+accelerate>=0.27.0
+sentencepiece
+protobuf<=4.25.3
+
+# --- OCR and Layout Extraction ---
+paddleocr>=2.7.0
+paddlepaddle==2.5.2     # Works on CPU; replace with paddlepaddle-gpu==2.5.2.post118 for CUDA 11.8
+opencv-python-headless
+PyMuPDF
+
+# --- Utilities ---
+pillow
+tqdm
+pandas
+numpy
+rapidfuzz
+regex
+
+# --- Visualization / Logging ---
+matplotlib
+rich
