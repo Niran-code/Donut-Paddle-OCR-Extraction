@@ -1,0 +1,109 @@
+{
+  "document_type": "Marksheet",
+  "university_name": "Visvesvaraya Technological University",
+  "college_name": "VTU",
+  "student_name": "Rajshekhar Malipatil",
+  "university_seat_number": "3TS17CV017",
+  "semester": "3",
+  "subjects": [
+    {
+      "subject_code": "17MAT31",
+      "subject_name": "ENGINEERING MATHEMATICS - III",
+      "internal_marks": "26",
+      "external_marks": "11",
+      "total": "37",
+      "result": "F"
+    },
+    {
+      "subject_code": "17CV32",
+      "subject_name": "STRENGTH OF MATERIALS",
+      "internal_marks": "33",
+      "external_marks": "5",
+      "total": "38",
+      "result": "F"
+    },
+    {
+      "subject_code": "17CV33",
+      "subject_name": "FLUID MECHANICS",
+      "internal_marks": "24",
+      "external_marks": "16",
+      "total": "40",
+      "result": "P"
+    },
+    {
+      "subject_code": "17CV34",
+      "subject_name": "BASIC SURVEYING",
+      "internal_marks": "24",
+      "external_marks": "21",
+      "total": "45",
+      "result": "P"
+    },
+    {
+      "subject_code": "17CV35",
+      "subject_name": "ENGINEERING GEOLOGY",
+      "internal_marks": "24",
+      "external_marks": "23",
+      "total": "47",
+      "result": "P"
+    },
+    {
+      "subject_code": "17CV36",
+      "subject_name": "BUILDING MATERIALS AND CONSTRUCTION",
+      "internal_marks": "24",
+      "external_marks": "30",
+      "total": "54",
+      "result": "P"
+    },
+    {
+      "subject_code": "17CVL37",
+      "subject_name": "BUILDING MATERIALS TESTING LABORATORY",
+      "internal_marks": "18",
+      "external_marks": "18",
+      "total": "36",
+      "result": "P"
+    },
+    {
+      "subject_code": "17CVL38",
+      "subject_name": "BASIC SURVEYING PRACTICE",
+      "internal_marks": "30",
+      "external_marks": "42",
+      "total": "72",
+      "result": "P"
+    },
+    {
+      "subject_code": "17CPH39",
+      "subject_name": "CONSTITUTION OF INDIA, PROFESSIONAL ETHICS AND HUMAN RIGHTS",
+      "internal_marks": "16",
+      "external_marks": "0",
+      "total": "16",
+      "result": "A"
+    }
+  ],
+  "semester_2": [
+    {
+      "subject_code": "17PCD23",
+      "subject_name": "PROGRAMMING IN C AND DATA STRUCTURES",
+      "internal_marks": "25",
+      "external_marks": "0",
+      "total": "25",
+      "result": "A"
+    }
+  ],
+  "semester_1": [
+    {
+      "subject_code": "17MAT11",
+      "subject_name": "ENGINEERING MATHEMATICS - I",
+      "internal_marks": "32",
+      "external_marks": "5",
+      "total": "37",
+      "result": "F"
+    }
+  ],
+  "remarks": {
+    "P": "Pass",
+    "F": "Fail",
+    "A": "Absent",
+    "W": "Withheld",
+    "X": "Not Eligible"
+  }
+}

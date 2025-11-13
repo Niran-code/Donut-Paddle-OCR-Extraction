@@ -1,0 +1,89 @@
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+.env
+.venv/
+venv/
+ENV/
+*.sqlite3
+
+# ===== Jupyter =====
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ===== Logs =====
+logs/
+*.log
+*.out
+*.err
+
+# ===== Model Weights =====
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# ===== Deep Learning Cache =====
+cache/
+.huggingface/
+transformers/
+accelerate/
+
+# ===== PaddleOCR Cache =====
+paddleocr/
+ocr_cache/
+paddleocr_cache/
+ppocr_keys_v1.txt
+ppocr_keys_v2.txt
+
+# ===== Data =====
+data/raw/
+data/processed/
+data/ocr_cache/
+data/tmp/
+dataset/
+datasets/
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# DO NOT IGNORE GROUND TRUTH JSONs
+# (uncomment if needed)
+# ground_truth/
+
+# ===== Evaluations & Reports =====
+evaluation_reports/
+reports/
+outputs/
+output/
+results.json
+
+# ===== Virtual Machines / Docker =====
+*.qcow2
+docker/volumes/
+docker-data/
+donut-env/
+outputs/
+evaluation_reports/
+
+
+# ===== Misc =====
+*.zip
+*.tar
+*.tar.gz
+*.7z
