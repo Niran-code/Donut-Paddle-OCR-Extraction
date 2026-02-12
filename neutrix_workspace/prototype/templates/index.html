@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neutrix Extraction Prototype</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --header-text: #1e293b;
+            --subtitle: #64748b;
+        }
+
+        [data-theme="dark"] {
+            --primary: #60a5fa;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+            --header-text: #f8fafc;
+            --subtitle: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: var(--subtitle);
+            font-size: 1.1rem;
+        }
+
+        .upload-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            text-align: center;
+            border: 2px dashed var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            background: var(--primary);
+            color: white;
+            /* Always white on primary button */
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .custom-file-upload:hover {
+            opacity: 0.9;
+        }
+
+        #file-name {
+            margin-top: 1rem;
+            font-weight: 500;
+            color: var(--subtitle);
+        }
+
+        #process-btn {
+            margin-top: 1rem;
+            padding: 0.75rem 2rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+        }
+
+        #process-btn:hover {
+            background: #059669;
+        }
+
+        .progress-container {
+            display: none;
+            margin: 2rem auto;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            color: var(--subtitle);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--subtitle);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 3rem;
+            gap: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .result-card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        /* JSON Output Text Color Logic */
+        pre {
+            background: #1e293b;
+            /* Keep dark background for code */
+            color: #e2e8f0;
+            /* Keep light text for code */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            /* css-3 */
+            white-space: -moz-pre-wrap;
+            /* Mozilla, since 1999 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            word-wrap: break-word;
+            /* Internet Explorer 5.5+ */
+        }
+
+        .face-image {
+            max-width: 100%;
+            border-radius: 0.5rem;
+            border: 2px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .badge-score {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* Dark mode adjustments for badges */
+        [data-theme="dark"] .badge-score {
+            background: #1e3a8a;
+            color: #bfdbfe;
+        }
+
+        .badge-type {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        [data-theme="dark"] .badge-type {
+            background: #064e3b;
+            color: #a7f3d0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">🌓</button>
+        <header>
+            <h1>Neutrix Extraction</h1>
+            <p class="subtitle">Advanced Document Parsing & Data Extraction</p>
+        </header>
+
+        <div class="upload-section">
+            <label for="file-upload" class="custom-file-upload">
+                📂 Choose File
+            </label>
+            <input id="file-upload" type="file" accept="image/*,.pdf" />
+            <div id="file-name"></div>
+            <button id="process-btn">Extract Data 🚀</button>
+        </div>
+
+        <div class="progress-container" id="progress-container">
+            <p class="status-text" id="status-text">Processing document...</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div id="results" style="display: none;">
+            <div class="results-container">
+                <!-- Raw JSON Output -->
+                <div class="result-card">
+                    <h2>📜 Extracted Data</h2>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="badge badge-type" id="doc-type-badge">Type: Unknown</span>
+                        <span class="badge badge-score" id="score-badge">Confidence: 0%</span>
+                    </div>
+                    <pre id="json-output"></pre>
+                </div>
+
+                <!-- Visuals (Face/Input) -->
+                <div class="result-card">
+                    <h2>📸 Visual Artifacts</h2>
+                    <div id="face-container" style="display: none;">
+                        <h3>Extracted Face</h3>
+                        <img id="face-img" class="face-image" src="" alt="Extracted Face">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <footer>
+            <p>Built by <strong>Niranjan J</strong> | Associate Software Engineer @Trustgrid</p>
+            <p>&copy; Copyrights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check saved theme or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            htmlElement.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌓';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        });
+
+        const fileUpload = document.getElementById('file-upload');
+        const fileName = document.getElementById('file-name');
+        const processBtn = document.getElementById('process-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressFill = document.getElementById('progress-fill');
+        const statusText = document.getElementById('status-text');
+        const resultsDiv = document.getElementById('results');
+        const jsonOutput = document.getElementById('json-output');
+        const faceContainer = document.getElementById('face-container');
+        const faceImg = document.getElementById('face-img');
+        const docTypeBadge = document.getElementById('doc-type-badge');
+        const scoreBadge = document.getElementById('score-badge');
+
+        fileUpload.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                fileName.textContent = this.files[0].name;
+                processBtn.style.display = 'inline-block';
+                resultsDiv.style.display = 'none';
+            }
+        });
+
+        processBtn.addEventListener('click', async () => {
+            const file = fileUpload.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // UI Reset
+            progressContainer.style.display = 'block';
+            processBtn.disabled = true;
+            resultsDiv.style.display = 'none';
+            faceContainer.style.display = 'none';
+
+            // Simulate Progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (progress < 90) {
+                    progress += Math.random() * 5;
+                    if (progress > 90) progress = 90;
+                    progressFill.style.width = progress + '%';
+
+                    if (progress > 20 && progress < 50) statusText.textContent = "Preprocessing image...";
+                    else if (progress >= 50 && progress < 80) statusText.textContent = "Running OCR models...";
+                    else if (progress >= 80) statusText.textContent = "Extracting structured data...";
+                }
+            }, 500);
+
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                clearInterval(interval);
+                progressFill.style.width = '100%';
+                statusText.textContent = "Complete!";
+
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                }, 500);
+
+                // Populate Data
+                // Create a display copy preventing big base64 strings
+                const displayData = { ...data };
+                if (displayData.face_image) {
+                    displayData.face_image = "<BASE64_IMAGE_DATA_TRUNCATED_FOR_DISPLAY>";
+                }
+
+                jsonOutput.textContent = JSON.stringify(displayData, null, 2);
+                docTypeBadge.textContent = 'Type: ' + (data.document_type || 'Unknown');
+                scoreBadge.textContent = 'Confidence: ' + (data.ocr_accuracy_score || '0') + '%';
+
+                if (data.face_image) {
+                    faceImg.src = 'data:image/jpeg;base64,' + data.face_image;
+                    faceContainer.style.display = 'block';
+                }
+
+                resultsDiv.style.display = 'block';
+                document.querySelector('.results-container').style.display = 'grid';
+
+            } catch (error) {
+                clearInterval(interval);
+                progressContainer.style.display = 'none';
+                alert('Error processing file: ' + error);
+            } finally {
+                processBtn.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
