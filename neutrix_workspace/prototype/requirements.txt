@@ -15,6 +15,10 @@ paddlepaddle>=2.6.0
 opencv-python-headless
 PyMuPDF
 
+# --- Document Structure ---
+docling
+pydantic>=2.0
+
 # --- Utilities ---
 pillow
 tqdm
@@ -22,10 +26,15 @@ pandas
 numpy
 rapidfuzz
 regex
+python-dotenv
 
 # --- Visualization / Logging ---
 matplotlib
 rich
 
-# --- Web Server ---
+# --- Web Server & Async ---
 flask
+werkzeug
+celery
+redis
+flasgger
