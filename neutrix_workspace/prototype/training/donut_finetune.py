@@ -27,8 +27,8 @@ class DonutDataset(Dataset):
         pass
 
 def prepare_training():
-    print("Preparing GPU environment...")
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print("Preparing CPU environment...")
+    device = "cpu"
     print(f"Device: {device}")
     
     # Load config yaml

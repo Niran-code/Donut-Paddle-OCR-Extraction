@@ -56,14 +56,31 @@ class Preprocessor:
                 return image_path
 
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            height, width = gray.shape
+            # Add a white border so edge-touching text is easily bounded by PaddleOCR
+            border_size = 50
+            padded = cv2.copyMakeBorder(
+                gray, 
+                border_size, border_size, border_size, border_size, 
+                cv2.BORDER_CONSTANT, 
+                value=[255, 255, 255]
+            )
             
-            if width < 1000:
-                scale = 1000 / width
-                img = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
-                
+            # Add a white border so edge-touching text is easily bounded by PaddleOCR
+            border_size = 50
+            padded = cv2.copyMakeBorder(
+                gray, 
+                border_size, border_size, border_size, border_size, 
+                cv2.BORDER_CONSTANT, 
+                value=[255, 255, 255]
+            )
+            
+            # Very slight resize to normalize resolution without distorting text
+            height, width = padded.shape
+            scale = 1800 / width
+            resized = cv2.resize(padded, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+            
             temp_path = image_path.replace(".", "_preprocessed.")
-            cv2.imwrite(temp_path, img)
+            cv2.imwrite(temp_path, resized)
             return temp_path
         except Exception as e:
             logger.error(f"Preprocessing failed: {e}")

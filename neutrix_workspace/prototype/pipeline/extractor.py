@@ -72,9 +72,25 @@ class HybridExtractorPipeline:
                         return True
                 return False
 
+            def is_passport(text: str) -> bool:
+                patterns = [
+                    r"passport",
+                    r"p<ind",
+                    r"republic\s*of\s*india",
+                    r"/nationality",
+                    r"/placeofssue",
+                    r"x[0-9]{7}",
+                    r"\bp<"
+                ]
+                text_clean = text.replace(" ", "")
+                for pattern in patterns:
+                    if re.search(pattern, text) or re.search(pattern, text_clean):
+                        return True
+                return False
+
             if is_driving_license(text_lower):
                 extracted_data = process_driving_license(raw_text, lines)
-            elif "passport" in text_lower or "p<ind" in text_lower.replace(" ", "") or "p<" in text_lower:
+            elif is_passport(text_lower):
                 extracted_data = process_passport(raw_text, lines)
         
         # 4. Fallback to Donut if primary extraction failed
@@ -91,6 +107,9 @@ class HybridExtractorPipeline:
                              extracted_data[k] = v
         
         # Add metadata
+        if extracted_data.get("document_type") == "Unknown" and raw_text:
+            extracted_data["raw_text"] = raw_text
+
         extracted_data["face_image"] = face_b64
         extracted_data["ocr_accuracy_score"] = round(avg_confidence * 100, 2)
         

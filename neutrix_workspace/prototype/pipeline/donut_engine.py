@@ -21,7 +21,7 @@ class DonutEngine:
                 logger.info("⏳ Loading Donut Processor & Model (Lazy Load)...")
                 self.processor = AutoProcessor.from_pretrained(self.model_name)
                 self.model = VisionEncoderDecoderModel.from_pretrained(self.model_name)
-                self.device = "cuda" if torch.cuda.is_available() else "cpu"
+                self.device = "cpu"
                 self.model.to(self.device)
                 self.model.eval()
                 logger.info(f"✅ Donut ready on {self.device}.")

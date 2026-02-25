@@ -14,16 +14,16 @@ class OCREngine:
         if self.ocr is None:
             try:
                 logger.info("Initializing PaddleOCR (Lazy Load)...")
-                use_gpu = os.environ.get("USE_GPU", "False").lower() == "true"
                 # Strict Memory Bounding applied to prevent Exit 247 on low-RAM machines
                 self.ocr = PaddleOCR(
-                    use_angle_cls=False, 
-                    lang=self.lang, 
-                    enable_mkldnn=not use_gpu, # MKLDNN is for CPU acceleration
-                    use_gpu=use_gpu,
+                    use_angle_cls=True, 
+                    lang=self.lang,
+                    enable_mkldnn=True,
+                    use_gpu=False,
+                    drop_score=0.8,
                     show_log=False
                 )
-                logger.info(f"PaddleOCR ready. (GPU: {use_gpu})")
+                logger.info("PaddleOCR ready. (CPU mode, MKLDNN enabled, Angle Cls enabled, strict drop_score)")
             except Exception as e:
                 logger.error(f"PaddleOCR initialization failed: {e}")
                 raise
@@ -35,7 +35,13 @@ class OCREngine:
         Returns: (raw_text_string, list_of_lines, average_confidence)
         """
         model = self._get_model()
-        ocr_result = model.ocr(image_path)
+        try:
+            ocr_result = model.ocr(image_path)
+        except Exception as e:
+            logger.warning(f"MKLDNN fast-inference crashed ({e}). Falling back to safe CPU configuration...")
+            fallback_model = PaddleOCR(use_angle_cls=True, lang=self.lang, enable_mkldnn=False, use_gpu=False, drop_score=0.8, show_log=False)
+            ocr_result = fallback_model.ocr(image_path)
+            
         lines = []
         confidences = []
 

@@ -14,7 +14,7 @@ def get_extractor():
     global _extractor
     if _extractor is None:
         logger.info("Initializing HybridExtractorPipeline in Celery Worker...")
-        _extractor = HybridExtractorPipeline()
+        _extractor = HybridExtractorPipeline(use_donut=True)
     return _extractor
 
 def get_pdf_processor():

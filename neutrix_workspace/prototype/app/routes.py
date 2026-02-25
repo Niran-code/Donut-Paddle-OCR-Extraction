@@ -18,7 +18,7 @@ def register(state):
     global extractor, pdf_processor
     logger.info("⏳ Initializing Extractor Pipeline inside routes...")
     # NOTE: In production, consider lazy loading or moving this outside request threads.
-    extractor = HybridExtractorPipeline()
+    extractor = HybridExtractorPipeline(use_donut=True)
     pdf_processor = PDFProcessor()
     logger.info("✅ Extractor Pipeline Ready!")
 

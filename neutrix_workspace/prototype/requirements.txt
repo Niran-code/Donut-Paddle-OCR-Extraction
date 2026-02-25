@@ -10,9 +10,9 @@ sentencepiece
 protobuf<=4.25.3
 
 # --- OCR and Layout Extraction ---
-paddleocr>=2.7.0
-paddlepaddle>=2.6.0
-opencv-python-headless
+paddleocr==2.7.3
+paddlepaddle==2.6.2
+opencv-python-headless==4.6.0.66
 PyMuPDF
 
 # --- Document Structure ---
@@ -23,7 +23,7 @@ pydantic>=2.0
 pillow
 tqdm
 pandas
-numpy
+numpy<2.0.0
 rapidfuzz
 regex
 python-dotenv

@@ -87,3 +87,8 @@ evaluation_reports/
 *.tar
 *.tar.gz
 *.7z
+
+# ===== Deployment ignores =====
+dataset/
+uploads/
+logs/
